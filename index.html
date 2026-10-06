@@ -32,6 +32,9 @@
       <button class="tab ativo" data-tab="personagem">⚔️ Personagem</button>
       <button class="tab" data-tab="missoes">📜 Missões</button>
       <button class="tab" data-tab="habilidades">✨ Habilidades</button>
+      <button class="tab" data-tab="masmorras">🏰 Masmorras</button>
+      <button class="tab" data-tab="sombras">🌑 Sombras</button>
+      <button class="tab" data-tab="loja">🪙 Loja</button>
       <button class="tab" data-tab="mental">🧠 Mental</button>
       <button class="tab" data-tab="treino">Treinos</button>
       <button class="tab" data-tab="cardio">Cárdio</button>
@@ -306,6 +309,88 @@
           <div id="grafico-carga" class="grafico"></div>
           <ul id="lista-cargas"></ul>
         </div>
+        <div class="card">
+          <h3>📏 Medidas corporais</h3>
+          <form id="form-medidas" class="compacto">
+            <input id="med-cintura" type="number" min="20" step="0.1" placeholder="Cintura (cm)">
+            <input id="med-peito" type="number" min="20" step="0.1" placeholder="Peito (cm)">
+            <input id="med-braco" type="number" min="10" step="0.1" placeholder="Braço (cm)">
+            <input id="med-coxa" type="number" min="10" step="0.1" placeholder="Coxa (cm)">
+            <button type="submit">Registrar no dia</button>
+          </form>
+          <ul id="lista-medidas"></ul>
+        </div>
+        <div class="card">
+          <h3>🏆 Recordes pessoais</h3>
+          <ul id="lista-prs"></ul>
+        </div>
+      </div>
+      <div class="cards espaco">
+        <div class="card">
+          <h3>📊 Evolução semanal (8 semanas)</h3>
+          <div id="graficos-semana"></div>
+        </div>
+        <div class="card">
+          <h3>🔥 Calendário de missões (16 semanas)</h3>
+          <div id="calendario-calor"></div>
+          <small>Cor = % de missões concluídas no dia.</small>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= MASMORRAS ================= -->
+    <section id="masmorras" class="painel">
+      <div class="janela-sistema">
+        <div class="sistema-titulo">[ MISSÃO DE EMERGÊNCIA ]</div>
+        <div id="emergencia"></div>
+      </div>
+      <div class="janela-sistema espaco">
+        <div class="sistema-titulo">[ MASMORRA DA SEMANA ]</div>
+        <div id="masmorra"></div>
+      </div>
+      <div class="janela-sistema espaco">
+        <div class="sistema-titulo">[ CHEFE DO MÊS ]</div>
+        <div id="chefe"></div>
+      </div>
+      <div class="janela-sistema espaco">
+        <div class="sistema-titulo">[ REAVALIAÇÃO DE RANK ]</div>
+        <div id="reavaliacao"></div>
+      </div>
+    </section>
+
+    <!-- ================= SOMBRAS ================= -->
+    <section id="sombras" class="painel">
+      <div class="janela-sistema">
+        <div class="sistema-titulo">[ EXÉRCITO DAS SOMBRAS ]</div>
+        <p class="centro"><small>Mantenha um hábito por 30 dias (missão concluída) para extrair sua sombra. Cada 30 dias extras sobem o nível dela.</small></p>
+        <div id="exercito" class="exercito"></div>
+      </div>
+      <div class="janela-sistema espaco">
+        <div class="sistema-titulo">[ DESPERTAR ]</div>
+        <div id="despertar-info"></div>
+      </div>
+      <div class="janela-sistema espaco">
+        <div class="sistema-titulo">[ LEMBRETES ]</div>
+        <div id="lembretes-info"></div>
+      </div>
+    </section>
+
+    <!-- ================= LOJA ================= -->
+    <section id="loja" class="painel">
+      <div class="janela-sistema">
+        <div class="sistema-titulo">[ LOJA DO SISTEMA ]</div>
+        <p class="centro ouro-saldo">🪙 Ouro: <strong id="ouro-saldo">0</strong></p>
+        <p class="centro"><small>Ganhe ouro: +5 por missão concluída, +50 por dia perfeito, masmorras, chefes e emergências.</small></p>
+        <div id="loja-itens" class="loja-grid"></div>
+      </div>
+      <div class="janela-sistema espaco">
+        <div class="sistema-titulo">[ FUSÃO DE ITENS ]</div>
+        <p class="centro"><small>3 itens iguais no inventário → 1 item do mesmo tipo com raridade superior.</small></p>
+        <div id="fusao"></div>
+      </div>
+      <div class="janela-sistema espaco">
+        <div class="sistema-titulo">[ CONJUNTOS ]</div>
+        <div id="conjuntos"></div>
       </div>
     </section>
 
@@ -345,6 +430,7 @@
   <script src="personagem.js"></script>
   <script src="icones.js"></script>
   <script src="sistema.js"></script>
+  <script src="extras.js"></script>
   <script src="backup.js"></script>
   <script>
     if ("serviceWorker" in navigator && location.protocol !== "file:") {

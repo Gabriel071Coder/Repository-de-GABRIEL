@@ -1,9 +1,9 @@
-// Service worker: permite instalar o app e usar sem internet.
+﻿// Service worker: permite instalar o app e usar sem internet.
 // Ao alterar arquivos do site, aumente a VERSAO para os celulares baixarem a nova versão.
-const VERSAO = "sistema-v1";
+const VERSAO = "sistema-v2";
 const ARQUIVOS = [
   "./", "./index.html", "./style.css", "./app.js", "./personagem.js", "./icones.js",
-  "./sistema.js", "./backup.js", "./manifest.json", "./icone.svg", "./icone-180.png", "./icone-192.png", "./icone-512.png",
+  "./sistema.js", "./extras.js", "./backup.js", "./manifest.json", "./icone.svg", "./icone-180.png", "./icone-192.png", "./icone-512.png",
   "https://unpkg.com/three@0.147.0/build/three.min.js",
 ];
 

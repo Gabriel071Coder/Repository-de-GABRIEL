@@ -461,6 +461,54 @@ select.info-valor option { background: #0b1426; }
 .backup-barra small.backup-alerta { color: #ffb347; }
 
 /* =====================================================
+   Extras: masmorras, sombras, loja, progresso
+   ===================================================== */
+#masmorras .janela-sistema, #sombras .janela-sistema, #loja .janela-sistema { max-width: 760px; margin-left: auto; margin-right: auto; }
+.req { display: flex; justify-content: space-between; align-items: center; gap: .5rem; margin-top: .5rem; font-size: .95rem; }
+.req button { flex: 0 0 auto; padding: .25rem .7rem; }
+.lista-mini { list-style: none; padding: 0; margin: .6rem 0; font-size: .9rem; color: var(--texto-suave); }
+.chefe-nome { font-size: 1.15rem; color: #fca5a5; }
+
+.exercito { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: .7rem; }
+.sombra { border: 1px solid rgba(124, 58, 237, .4); background: rgba(20, 10, 40, .55); padding: .7rem; text-align: center; opacity: .65; }
+.sombra.extraida { opacity: 1; border-color: #7c3aed; box-shadow: 0 0 12px rgba(124, 58, 237, .45); }
+.sombra-icone { font-size: 2rem; filter: drop-shadow(0 0 6px #7c3aed); }
+.sombra-nome { font-family: "Orbitron", sans-serif; color: #fff; }
+.sombra-nome small { color: #c4b5fd; font-size: .7rem; }
+.sombra-tit, .sombra-bonus { font-size: .8rem; color: var(--texto-suave); }
+.sombra-bonus { margin-top: .3rem; color: #c4b5fd; }
+.btn-arise { margin-top: .5rem; background: #7c3aed; border-color: #a78bfa; font-family: "Orbitron", sans-serif; animation: pulsoArise 1.2s infinite; }
+@keyframes pulsoArise { 50% { box-shadow: 0 0 16px #a78bfa; } }
+
+.ouro-saldo { font-size: 1.3rem; color: #fcd34d; }
+.loja-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: .7rem; }
+.loja-item { border: 1px solid rgba(79, 163, 255, .4); padding: .7rem; text-align: center; display: flex; flex-direction: column; gap: .3rem; background: rgba(79, 163, 255, .05); }
+.loja-icone { font-size: 2rem; }
+.loja-nome { color: #fff; font-weight: 700; }
+.loja-desc { font-size: .82rem; color: var(--texto-suave); flex: 1; }
+.loja-item button { background: #b45309; border-color: #fcd34d; }
+.loja-item button:disabled, .req button:disabled, #btn-reavaliar:disabled { opacity: .45; cursor: not-allowed; }
+
+svg.barras { width: 100%; height: auto; display: block; margin-bottom: .6rem; }
+svg.barras text { font-size: 8px; fill: var(--texto-suave); }
+.calor { display: flex; gap: 3px; overflow-x: auto; padding: .3rem 0; }
+.calor-col { display: flex; flex-direction: column; gap: 3px; }
+.calor-cel { width: 14px; height: 14px; border-radius: 2px; background: #1e293b; }
+.calor-cel.n1 { background: #1e3a8a; }
+.calor-cel.n2 { background: #2563eb; }
+.calor-cel.n3 { background: #60a5fa; }
+.calor-cel.n4 { background: #bfdbfe; box-shadow: 0 0 4px #60a5fa; }
+.calor-cel.futuro { background: transparent; border: 1px dashed #1e293b; }
+
+/* Despertar: muda a cor da interface */
+body.despertar-roxo { --destaque: #7c3aed; }
+body.despertar-roxo .janela-sistema { border-color: rgba(167, 139, 250, .75); box-shadow: 0 0 24px rgba(124, 58, 237, .5), inset 0 0 30px rgba(124, 58, 237, .15); }
+body.despertar-roxo .janela-sistema::before, body.despertar-roxo .janela-sistema::after { border-color: #c4b5fd; filter: drop-shadow(0 0 4px #7c3aed); }
+body.despertar-ouro { --destaque: #d97706; }
+body.despertar-ouro .janela-sistema { border-color: rgba(252, 211, 77, .75); box-shadow: 0 0 24px rgba(245, 158, 11, .5), inset 0 0 30px rgba(245, 158, 11, .15); }
+body.despertar-ouro .janela-sistema::before, body.despertar-ouro .janela-sistema::after { border-color: #fde68a; filter: drop-shadow(0 0 4px #f59e0b); }
+
+/* =====================================================
    Celular (Android / iPhone)
    ===================================================== */
 html { -webkit-text-size-adjust: 100%; }

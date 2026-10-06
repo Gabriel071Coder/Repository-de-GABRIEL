@@ -5,7 +5,7 @@ const $ = id => document.getElementById(id);
 const carregar = (chave, padrao) => JSON.parse(localStorage.getItem(chave)) ?? padrao;
 // Chaves internas do Sistema (não disparam recálculo de XP)
 const CHAVES_SISTEMA = ["nivelSalvo", "logSistema", "inventario", "equipados", "pendentes",
-  "recompensasRecebidas", "nomePersonagem", "pontosStatus"];
+  "recompensasRecebidas", "nomePersonagem", "pontosStatus", "titulosVistos", "avisoPenal", "tituloSel"];
 const salvar = (chave, valor) => {
   localStorage.setItem(chave, JSON.stringify(valor));
   if (!CHAVES_SISTEMA.includes(chave) && typeof agendarSistema === "function") agendarSistema();
