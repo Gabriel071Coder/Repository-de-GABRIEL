@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <radialGradient id="f" cx=".5" cy=".4" r=".7">
+      <stop offset="0" stop-color="#16306e"/><stop offset="1" stop-color="#040a1a"/>
+    </radialGradient>
+  </defs>
+  <rect width="512" height="512" rx="96" fill="url(#f)"/>
+  <rect x="56" y="56" width="400" height="400" fill="none" stroke="#4fa3ff" stroke-width="10" opacity=".6"/>
+  <path d="M56 140 V56 H140 M372 456 H456 V372" fill="none" stroke="#9fd0ff" stroke-width="18"/>
+  <text x="256" y="330" text-anchor="middle" font-family="Arial Black, Arial, sans-serif" font-size="230" font-weight="900" fill="#e8f4ff" stroke="#4fa3ff" stroke-width="6">S</text>
+</svg>

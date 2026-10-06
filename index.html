@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sistema</title>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0b1426">
+  <link rel="icon" href="icone.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icone-180.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Sistema">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Orbitron:wght@600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Sistema</h1>
+    <div class="data-global">
+      <label>Dia: <input type="date" id="data-sel"></label>
+      <button id="btn-hoje" class="secundario">Hoje</button>
+    </div>
+    <div class="backup-barra">
+      <button id="btn-exportar" class="secundario" title="Baixar um arquivo com todos os seus dados">💾 Exportar backup</button>
+      <button id="btn-importar" class="secundario" title="Restaurar dados de um arquivo de backup">📂 Importar backup</button>
+      <input type="file" id="arq-importar" accept=".json,application/json" hidden>
+      <small id="backup-info"></small>
+    </div>
+    <nav>
+      <button class="tab ativo" data-tab="personagem">⚔️ Personagem</button>
+      <button class="tab" data-tab="missoes">📜 Missões</button>
+      <button class="tab" data-tab="habilidades">✨ Habilidades</button>
+      <button class="tab" data-tab="mental">🧠 Mental</button>
+      <button class="tab" data-tab="treino">Treinos</button>
+      <button class="tab" data-tab="cardio">Cárdio</button>
+      <button class="tab" data-tab="alimentacao">Alimentação</button>
+      <button class="tab" data-tab="progresso">Progresso</button>
+      <button class="tab" data-tab="resumo">Resumo</button>
+    </nav>
+  </header>
+
+  <main>
+    <!-- ================= PERSONAGEM ================= -->
+    <section id="personagem" class="painel ativo">
+      <div class="char-layout">
+      <div class="janela-sistema">
+        <div class="sistema-titulo">[ EQUIPAMENTO ]</div>
+        <div id="equip-slots" class="equip-grid"></div>
+        <div id="equip-bonus" class="centro espaco"></div>
+      </div>
+      <div class="janela-sistema">
+        <div class="sistema-titulo">[ STATUS ]</div>
+        <div class="status-topo">
+          <div>
+            <div class="rotulo">NOME</div>
+            <input id="char-nome" class="char-nome" placeholder="Seu nome de caçador" maxlength="30">
+          </div>
+          <div class="rank-box">
+            <div class="rotulo">RANK</div>
+            <div id="char-rank" class="rank">E</div>
+          </div>
+          <div class="nivel-box">
+            <div class="rotulo">NÍVEL</div>
+            <div id="char-nivel" class="nivel">1</div>
+          </div>
+        </div>
+        <div class="status-info">
+          <div><span class="rotulo">CLASSE</span><span id="char-classe" class="info-valor">Nenhuma</span></div>
+          <div><span class="rotulo">TÍTULO</span><select id="char-titulo" class="info-valor"></select></div>
+        </div>
+
+        <div class="vitais">
+          <div class="vital"><span class="rotulo">HP</span><div class="barra hp"><div id="char-hp-barra"></div></div><span id="char-hp" class="vital-num"></span></div>
+          <div class="vital"><span class="rotulo">MP</span><div class="barra mp"><div id="char-mp-barra"></div></div><span id="char-mp" class="vital-num"></span></div>
+          <div class="vital"><span class="rotulo">FADIGA</span><span id="char-fadiga" class="fadiga-num">0</span></div>
+        </div>
+
+        <div class="rotulo">EXPERIÊNCIA</div>
+        <div class="barra xp"><div id="char-xp-barra"></div></div>
+        <div id="char-xp-texto" class="xp-texto"></div>
+
+        <div class="atributos" id="char-atributos"></div>
+        <div id="char-pontos" class="pontos-disp"></div>
+        <div id="char-poder" class="poder"></div>
+      </div>
+      </div>
+
+      <div class="janela-sistema espaco inv-janela">
+        <div class="sistema-titulo">[ INVENTÁRIO ]</div>
+        <div id="inv-info" class="xp-texto"></div>
+        <div id="inv-grid" class="inv-grid"></div>
+        <div id="inv-detalhe"></div>
+      </div>
+
+      <div class="cards espaco">
+        <div class="card"><h3>🎁 Recompensas pendentes</h3><ul id="inv-pendentes"></ul></div>
+        <div class="card"><h3>🏆 Recompensas por nível</h3><ul id="inv-recompensas"></ul></div>
+        <div class="card"><h3>📜 Raridades</h3><ul id="inv-raridades"></ul></div>
+      </div>
+
+      <div class="cards espaco">
+        <div class="card"><h3>Origem do XP</h3><ul id="char-regras"></ul></div>
+        <div class="card"><h3>Registro do Sistema</h3><ul id="char-log"></ul></div>
+      </div>
+    </section>
+
+    <!-- ================= MISSÕES ================= -->
+    <section id="habilidades" class="painel">
+      <div class="janela-sistema">
+        <div class="sistema-titulo">[ HABILIDADES ]</div>
+        <div class="rotulo">PASSIVAS</div>
+        <ul id="lista-passivas" class="habilidades"></ul>
+        <div class="rotulo espaco">ATIVAS</div>
+        <ul id="lista-ativas" class="habilidades"></ul>
+      </div>
+    </section>
+
+    <section id="missoes" class="painel">
+      <div class="janela-sistema">
+        <div class="sistema-titulo">[ MISSÃO DIÁRIA ]</div>
+        <p class="centro missao-sub">Preparação para se tornar forte — <span class="data-texto"></span></p>
+        <div id="missoes-tempo" class="centro aviso"></div>
+        <ul id="lista-missoes" class="missoes"></ul>
+        <div id="missoes-resumo" class="centro espaco"></div>
+      </div>
+
+      <div class="cards espaco">
+        <div class="card">
+          <h3>⚙️ Metas das missões</h3>
+          <p><small>Os exercícios vêm do <strong>plano de treino</strong> do dia; proteína e calorias vêm das metas da <strong>Alimentação</strong>.</small></p>
+          <label>Cárdio (km) <input id="cfg-kmCardio" type="number" min="0.5" step="0.5"></label>
+          <label>Leitura (min) <input id="cfg-leituraMin" type="number" min="1"></label>
+          <label>Meditação (min) <input id="cfg-meditacaoMin" type="number" min="1"></label>
+        </div>
+        <div class="card">
+          <h3>⚠️ Zona de Penalidade</h3>
+          <p>Dias passados com registros, mas com menos de 50% das missões concluídas, custam <strong>−50 XP</strong>.</p>
+          <ul id="lista-penalidades"></ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= MENTAL ================= -->
+    <section id="mental" class="painel">
+      <h2>Evolução mental — <span class="data-texto"></span></h2>
+      <form id="form-mental">
+        <select id="mental-tipo">
+          <option value="leitura">📖 Leitura</option>
+          <option value="meditacao">🧘 Meditação</option>
+          <option value="escrita">✍️ Escrita</option>
+        </select>
+        <input id="mental-livro" class="campo-leitura" list="livros-lista" placeholder="Livro">
+        <datalist id="livros-lista"></datalist>
+        <input id="mental-paginas" class="campo-leitura" type="number" min="0" placeholder="Páginas lidas">
+        <select id="mental-subtipo" class="campo-escrita">
+          <option>Diário</option><option>Gratidão</option><option>Ideias</option>
+          <option>Metas</option><option>Texto livre</option>
+        </select>
+        <input id="mental-minutos" type="number" min="1" placeholder="Minutos" required>
+        <textarea id="mental-texto" class="campo-escrita" rows="4" placeholder="Escreva aqui..."></textarea>
+        <button type="submit">Registrar</button>
+      </form>
+      <div class="cards">
+        <div class="card determinacao"><h3>🔥 Determinação</h3><div id="determinacao"></div></div>
+        <div class="card"><h3>Atividades do dia</h3><ul id="lista-mental"></ul></div>
+        <div class="card"><h3>Estatísticas</h3><div id="stats-mental"></div></div>
+        <div class="card"><h3>📚 Livros</h3><ul id="lista-livros"></ul></div>
+      </div>
+      <div class="card espaco"><h3>✍️ Últimos escritos</h3><div id="lista-diario"></div></div>
+    </section>
+    <!-- ================= TREINOS ================= -->
+    <section id="treino" class="painel">
+      <h2>Plano de treino semanal</h2>
+      <form id="form-treino">
+        <select id="treino-dia">
+          <option>Segunda</option><option>Terça</option><option>Quarta</option>
+          <option>Quinta</option><option>Sexta</option><option>Sábado</option><option>Domingo</option>
+        </select>
+        <input id="treino-exercicio" placeholder="Exercício (ex: Supino)" required>
+        <select id="treino-grupo">
+          <option>Peito</option><option>Costas</option><option>Ombros</option>
+          <option>Bíceps</option><option>Tríceps</option><option>Pernas</option>
+          <option>Glúteos</option><option>Abdômen</option><option>Corpo todo</option>
+        </select>
+        <input id="treino-series" type="number" min="1" placeholder="Séries" required>
+        <input id="treino-reps" type="number" min="1" placeholder="Reps" required>
+        <input id="treino-carga" type="number" min="0" step="0.5" placeholder="Carga (kg)">
+        <input id="treino-descanso" type="number" min="0" step="5" placeholder="Descanso (s)">
+        <input id="treino-obs" placeholder="Observações (técnica, ajuste...)" class="largo">
+        <button type="submit">Adicionar</button>
+      </form>
+      <p class="dica">Marque ✔ os exercícios no card do dia selecionado no topo. A carga feita vai para o histórico (aba Progresso).</p>
+      <div id="lista-treinos" class="grade-semana"></div>
+      <div class="card espaco">
+        <h3>Equilíbrio por grupo muscular (séries/semana)</h3>
+        <div id="equilibrio-grupos"></div>
+      </div>
+    </section>
+
+    <!-- ================= CÁRDIO ================= -->
+    <section id="cardio" class="painel">
+      <h2>Cárdio — <span class="data-texto"></span></h2>
+      <form id="form-cardio">
+        <select id="cardio-tipo">
+          <option>Corrida</option><option>Caminhada</option><option>Bicicleta</option>
+          <option>Esteira</option><option>Elíptico</option><option>Natação</option>
+        </select>
+        <select id="cardio-intensidade">
+          <option value="leve">Leve</option>
+          <option value="moderado" selected>Moderado</option>
+          <option value="intenso">Intenso</option>
+          <option value="intervalado">Intervalado</option>
+        </select>
+        <input id="cardio-minutos" type="number" min="1" step="0.1" placeholder="Minutos" required>
+        <input id="cardio-km" type="number" min="0" step="0.01" placeholder="Km percorridos" required>
+        <input id="cardio-fc" type="number" min="40" max="220" placeholder="FC média (bpm)">
+        <input id="cardio-pace" placeholder="Pace" readonly>
+        <input id="cardio-kcal" placeholder="Kcal gastas" readonly>
+        <button type="submit">Adicionar</button>
+      </form>
+      <div class="cards">
+        <div class="card"><h3>Sessões do dia</h3><ul id="lista-cardio"></ul></div>
+        <div class="card"><h3>Estatísticas</h3><div id="stats-cardio"></div></div>
+      </div>
+      <div class="card espaco">
+        <h3>Histórico (últimas 15 sessões)</h3>
+        <div class="tabela-wrap"><table id="historico-cardio"></table></div>
+      </div>
+    </section>
+
+    <!-- ================= ALIMENTAÇÃO ================= -->
+    <section id="alimentacao" class="painel">
+      <h2>Alimentação — <span class="data-texto"></span></h2>
+
+      <h3 class="sub">Seu perfil</h3>
+      <form id="form-perfil">
+        <input id="perfil-peso" type="number" min="20" step="0.1" placeholder="Peso (kg)" required>
+        <input id="perfil-altura" type="number" min="100" placeholder="Altura (cm)" required>
+        <input id="perfil-idade" type="number" min="10" placeholder="Idade" required>
+        <select id="perfil-sexo">
+          <option value="M">Masculino</option><option value="F">Feminino</option>
+        </select>
+        <select id="perfil-atividade">
+          <option value="1.2">Sedentário</option>
+          <option value="1.375">Leve (1-3x/semana)</option>
+          <option value="1.55" selected>Moderado (3-5x/semana)</option>
+          <option value="1.725">Intenso (6-7x/semana)</option>
+          <option value="1.9">Muito intenso (2x/dia)</option>
+        </select>
+        <select id="perfil-objetivo">
+          <option value="perder">Perder peso</option>
+          <option value="manter" selected>Manter peso</option>
+          <option value="ganhar">Ganhar massa</option>
+        </select>
+        <button type="submit">Calcular minhas metas</button>
+      </form>
+      <div id="resultado-perfil" class="resultado"></div>
+
+      <h3 class="sub">Metas diárias</h3>
+      <div class="metas">
+        <label>Calorias <input id="meta-kcal" type="number" min="0"></label>
+        <label>Proteína (g) <input id="meta-prot" type="number" min="0"></label>
+        <label>Carboidrato (g) <input id="meta-carb" type="number" min="0"></label>
+        <label>Gordura (g) <input id="meta-gord" type="number" min="0"></label>
+      </div>
+
+      <h3 class="sub">Registrar alimento</h3>
+      <form id="form-refeicao">
+        <select id="refeicao-tipo">
+          <option>Café da manhã</option><option>Lanche da manhã</option><option>Almoço</option>
+          <option>Lanche da tarde</option><option>Pré-treino</option><option>Pós-treino</option>
+          <option>Jantar</option><option>Ceia</option>
+        </select>
+        <input id="refeicao-alimento" list="banco-alimentos" placeholder="Alimento (digite p/ buscar)" required>
+        <datalist id="banco-alimentos"></datalist>
+        <input id="refeicao-gramas" type="number" min="0" step="1" placeholder="Gramas">
+        <input id="refeicao-kcal" type="number" min="0" placeholder="kcal" required>
+        <input id="refeicao-prot" type="number" min="0" step="0.1" placeholder="Proteína (g)">
+        <input id="refeicao-carb" type="number" min="0" step="0.1" placeholder="Carbo (g)">
+        <input id="refeicao-gord" type="number" min="0" step="0.1" placeholder="Gordura (g)">
+        <button type="submit">Adicionar</button>
+      </form>
+      <p class="dica">Alimentos do banco preenchem os valores pela quantidade em gramas. Alimentos novos com gramas informadas são salvos no banco.</p>
+      <div id="totais-dia" class="resultado"></div>
+      <div id="lista-refeicoes"></div>
+    </section>
+
+    <!-- ================= PROGRESSO ================= -->
+    <section id="progresso" class="painel">
+      <h2>Progresso</h2>
+      <div class="cards">
+        <div class="card">
+          <h3>Peso corporal</h3>
+          <form id="form-peso" class="compacto">
+            <input id="peso-valor" type="number" min="20" step="0.1" placeholder="Peso (kg)" required>
+            <button type="submit">Registrar no dia</button>
+          </form>
+          <div id="grafico-peso" class="grafico"></div>
+          <ul id="lista-pesos"></ul>
+        </div>
+        <div class="card">
+          <h3>Evolução de cargas</h3>
+          <select id="select-exercicio"></select>
+          <div id="grafico-carga" class="grafico"></div>
+          <ul id="lista-cargas"></ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= RESUMO ================= -->
+    <section id="resumo" class="painel">
+      <h2>Resumo — <span class="data-texto"></span></h2>
+      <div class="cards">
+        <div class="card"><h3>Treino</h3><ul id="resumo-treino"></ul></div>
+        <div class="card"><h3>Cárdio</h3><ul id="resumo-cardio"></ul></div>
+        <div class="card"><h3>Macronutrientes</h3><div id="resumo-macros"></div></div>
+        <div class="card"><h3>Saldo de calorias</h3><div id="resumo-saldo"></div></div>
+        <div class="card">
+          <h3>Água</h3>
+          <p id="resumo-agua"></p>
+          <div class="barra"><div id="barra-agua"></div></div>
+          <button data-agua="250">+250 ml</button>
+          <button data-agua="500">+500 ml</button>
+          <button id="reset-agua" class="secundario">Zerar</button>
+        </div>
+        <div class="card">
+          <h3>Sono</h3>
+          <label>Horas dormidas <input id="sono-horas" type="number" min="0" max="24" step="0.5"></label>
+          <p id="resumo-sono"></p>
+        </div>
+      </div>
+      <div class="card espaco">
+        <h3>Últimos 7 dias</h3>
+        <div class="tabela-wrap"><table id="tabela-semana"></table></div>
+      </div>
+    </section>
+  </main>
+
+  <div id="notificacao" class="notificacao"></div>
+
+  <script src="app.js"></script>
+  <script src="https://unpkg.com/three@0.147.0/build/three.min.js"></script>
+  <script src="personagem.js"></script>
+  <script src="icones.js"></script>
+  <script src="sistema.js"></script>
+  <script src="backup.js"></script>
+  <script>
+    if ("serviceWorker" in navigator && location.protocol !== "file:") {
+      navigator.serviceWorker.register("sw.js").catch(err => console.warn("Service worker:", err));
+    }
+  </script>
+</body>
+</html>
